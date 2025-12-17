@@ -2,13 +2,32 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的可视化文章专栏</title>
+    <style>
+        /* 简单加一点样式让它好看点 */
+        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 10px; }
+        a { text-decoration: none; color: #0366d6; font-size: 18px; }
+        a:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-    <h1>欢迎来到我的主页</h1>
-    <p>这是我的第一个 GitHub Pages 网站。</p>
-    
-    <!-- 跳转链接 -->
-    <a href="about.html">点击这里去关于我页面</a>
+
+    <h1>可视化文章列表</h1>
+    <p>欢迎来到我的专栏，这里是我对各种技术文章的可视化讲解。</p>
+
+    <ul>
+        <li>
+            <!-- 关键在这里：href 指向 articles 文件夹下的文件 -->
+            <a href="articles/how_to_write_a_article.html">
+                第一篇：如何写好一篇文章 (可视化讲解)
+            </a>
+        </li>
+        
+        <!-- 以后你有新文章，就继续在这里加 li 标签 -->
+    </ul>
+
 </body>
 </html>
