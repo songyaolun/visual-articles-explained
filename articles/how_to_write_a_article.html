@@ -3,512 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>写作与分享实战指南 | Infographic</title>
+    <title>写作与分享：从思维内化到影响力构建</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom Font */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
         body {
             font-family: 'Noto Sans SC', sans-serif;
-            background-color: #F3F4F6; /* Light Gray Background */
-            color: #1F2937; /* Dark Gray Text */
+            scroll-behavior: smooth;
         }
 
-        /* Palette - Vibrant Creativity */
-        /* Primary: #4C1D95 (Deep Purple) */
-        /* Secondary: #06B6D4 (Cyan) */
-        /* Accent: #DB2777 (Pink) */
-        /* Highlight: #F59E0B (Amber) */
-
-        .text-primary { color: #4C1D95; }
-        .bg-primary { background-color: #4C1D95; }
-        .text-secondary { color: #06B6D4; }
-        .bg-secondary { background-color: #06B6D4; }
-        .text-accent { color: #DB2777; }
-        .bg-accent { background-color: #DB2777; }
-        .text-highlight { color: #F59E0B; }
-        .bg-highlight { background-color: #F59E0B; }
-
-        /* Chart Container Strict Styling */
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px; /* Max width constraint */
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px; /* Base height */
-            max-height: 400px;
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
         }
 
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
+        .card-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 10px -2px rgba(0, 0, 0, 0.03);
         }
 
-        /* CSS Shapes for Flow/Funnel (No SVG) */
-        .scqa-box {
+        .prose blockquote {
+            border-left: 4px solid #6366f1;
+            padding: 1rem 1.5rem;
+            font-style: italic;
+            color: #4b5563;
+            background: #f9fafb;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 2rem 0;
+        }
+
+        /* 顶部导航高亮样式 */
+        .nav-link-active {
+            color: #6366f1 !important;
             position: relative;
         }
-        .scqa-box::after {
-            content: '▼';
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #9CA3AF;
-            font-size: 1.2rem;
-        }
-        .scqa-box:last-child::after {
+        .nav-link-active::after {
             content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #6366f1;
         }
 
-        .funnel-step {
-            clip-path: polygon(5% 0%, 95% 0%, 85% 100%, 15% 100%);
+        .scqa-box {
+            border-left: 4px solid #10b981;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            z-index: 100;
+            transition: width 0.1s;
         }
     </style>
-    <!-- 
-        SOURCE MATERIAL ANALYSIS & PLAN
-        1. Theme: Writing & Sharing (Internal clarity -> External influence).
-        2. Visual Strategy:
-           - Comparison (Creator vs Consumer): Radar Chart.
-           - Composition (Info Diet): Doughnut Chart.
-           - Process (SCQA): CSS Cards.
-           - Relationship (Distribution Funnel): Styled Divs.
-           - Trend (Compound Interest): Line Chart.
-        3. Palette: Vibrant Purple/Cyan/Pink for high energy/creativity.
-        4. No SVG/Mermaid used.
-    -->
 </head>
-<body class="antialiased">
+<body class="bg-slate-50 text-slate-900">
 
-    <!-- Header Section -->
-    <header class="bg-primary text-white py-16 px-4 text-center shadow-lg relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div class="relative z-10 max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">写作与分享实战指南</h1>
-            <p class="text-xl md:text-2xl font-light text-cyan-300">从思维整理到个人影响力的构建</p>
-            <div class="mt-8 flex justify-center gap-4 flex-wrap">
-                <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">💡 深度思考</span>
-                <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">📢 建立连接</span>
-                <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">🚀 知识复利</span>
+    <div id="progress-bar" style="width: 0%"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav sticky top-0 z-50 py-4">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+                    <i class="fas fa-pen-nib"></i>
+                </div>
+                <span class="font-bold text-xl tracking-tight hidden sm:inline">Writing & Sharing</span>
+            </div>
+            <div id="top-nav" class="flex items-center space-x-4 md:space-x-8 text-sm font-medium text-slate-500 overflow-x-auto pb-1 sm:pb-0">
+                <a href="#intro" class="hover:text-indigo-600 transition whitespace-nowrap">为何写作</a>
+                <a href="#inner" class="hover:text-indigo-600 transition whitespace-nowrap">内向价值</a>
+                <a href="#outer" class="hover:text-indigo-600 transition whitespace-nowrap">外向影响力</a>
+                <a href="#input" class="hover:text-indigo-600 transition whitespace-nowrap">输入</a>
+                <a href="#output" class="hover:text-indigo-600 transition whitespace-nowrap">输出</a>
+                <a href="#conclusion" class="hover:text-indigo-600 transition whitespace-nowrap">结语</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-20 pb-16 px-4 bg-white border-b border-slate-100">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold mb-4 tracking-widest uppercase">方法论体系</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+                写作与分享：从思维内化到影响力构建
+            </h1>
+            <p class="text-xl text-slate-500 mb-8 max-w-2xl mx-auto leading-relaxed">
+                写作是与自己的深度辩论，分享是与世界的价值共鸣。建立你的知识系统，撬动个人影响力的杠杆。
+            </p>
+            <div class="flex flex-wrap justify-center gap-6 text-sm font-medium">
+                <div class="flex items-center text-slate-400"><i class="far fa-user mr-2"></i> ByteTech社区 · 国际物流</div>
+                <div class="flex items-center text-slate-400"><i class="fas fa-brain mr-2"></i> 深度干货 · 实战复盘</div>
+                <div class="flex items-center text-slate-400"><i class="fas fa-seedling mr-2"></i> 长期主义 · 价值复利</div>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-12 space-y-16">
-
-        <!-- Section 1: The Why - Radar Chart -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="order-2 lg:order-1">
-                <div class="chart-container">
-                    <canvas id="mindsetChart"></canvas>
-                </div>
-            </div>
-            <div class="order-1 lg:order-2">
-                <h2 class="text-3xl font-bold text-primary mb-6 border-l-8 border-accent pl-4">为什么要开始？<br><span class="text-lg font-normal text-gray-600">打破消费者的被动，开启创造者的主动。</span></h2>
-                <p class="text-gray-700 mb-4 leading-relaxed">
-                    写作不仅仅是为了给别人看，首先是为了理清自己的思路。当我们从单纯的信息“消费者”转变为“创造者”时，我们的思维模式会发生根本性的转变。
-                </p>
-                <ul class="space-y-3">
-                    <li class="flex items-start">
-                        <span class="text-2xl mr-2">🧠</span>
-                        <div>
-                            <strong class="text-primary">对己（内向价值）：</strong> 写作是思维的“去碎片化”过程。它通过记录对抗遗忘，通过逻辑推演构建“第二大脑”。
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-2xl mr-2">🌍</span>
-                        <div>
-                            <strong class="text-secondary">对他（外向价值）：</strong> 分享不是炫耀，而是连接。通过“费曼学习法”检验知识，利用“被动社交”让机会主动找到你。
-                        </div>
-                    </li>
-                </ul>
-                <div class="mt-6 p-4 bg-white rounded-lg shadow-sm border-l-4 border-highlight">
-                    <p class="italic text-gray-600">"你不需要成为大师才能分享，只需要比读者多懂一点点。" — 破除冒名顶替综合征</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 2: Input Strategy - Doughnut Chart -->
-        <section class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-primary">建立健康的“信息食谱”</h2>
-                <p class="text-gray-600 mt-2 max-w-2xl mx-auto">好文章是生长出来的，不是捏造出来的。你的输入质量直接决定了输出的质量。</p>
-            </div>
+    <!-- Centered Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-16">
+        
+        <article class="prose prose-slate prose-lg lg:prose-xl mx-auto">
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">信噪比管理 (Signal vs. Noise)</h3>
-                    <p class="text-gray-700 mb-6">
-                        我们需要警惕算法推荐的“高刺激、低营养”快餐。一个健康的知识摄入模型应该侧重于“长半衰期”的内容，即那些经得起时间考验的经典与深度思考。
-                    </p>
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                            <h4 class="font-bold text-primary">📥 即时学习 (Just-in-Time)</h4>
-                            <p class="text-sm text-gray-600">针对当下的写作项目获取知识，拒绝囤积式的“稍后阅读”。</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                            <h4 class="font-bold text-accent">📝 全渠道捕捉 (Capture)</h4>
-                            <p class="text-sm text-gray-600">灵感稍纵即逝。无论洗澡还是通勤，利用Flomo或备忘录在30秒内捕捉它。</p>
-                        </div>
+            <section id="intro" class="mb-20 scroll-mt-24">
+                <p class="lead">写作不仅是记录，更是一场对抗“思维熵增”的战争。通过编码与解码，我们完成了从自我到他者的思想翻译。</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
+                    <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                        <h4 class="text-indigo-900 font-bold mb-2">内化的表达</h4>
+                        <p class="text-sm text-indigo-700 m-0 leading-relaxed">首要目标是<strong>逻辑自洽</strong>。整理混乱思绪，形成线性序列。这是思维的第一次编码。</p>
+                    </div>
+                    <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
+                        <h4 class="text-emerald-900 font-bold mb-2">外化的沟通</h4>
+                        <p class="text-sm text-emerald-700 m-0 leading-relaxed">首要目标是<strong>读者共鸣</strong>。考虑“读者如何听懂”。这是思维的第二次编码。</p>
                     </div>
                 </div>
-                <div class="chart-container">
-                    <canvas id="inputChart"></canvas>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Section 3: Writing Technique - CSS Flow -->
-        <section>
-            <div class="mb-10">
-                <h2 class="text-3xl font-bold text-primary border-l-8 border-secondary pl-4 mb-4">如何高效输出？</h2>
-                <p class="text-gray-700">写作是一门手艺，有流程可循。利用 <strong>SCQA 模型</strong> 来构建引人入胜的叙事结构，克服空白文档恐惧症。</p>
-            </div>
-
-            <!-- SCQA Model Visualization using Tailwind/CSS (No Mermaid/SVG) -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-                <!-- S -->
-                <div class="scqa-box bg-white p-6 rounded-xl shadow-md border-t-4 border-primary text-center hover:shadow-lg transition-shadow">
-                    <div class="text-4xl font-black text-primary/20 mb-2">S</div>
-                    <h3 class="text-xl font-bold text-primary mb-2">情境<br><span class="text-sm opacity-75">Situation</span></h3>
-                    <p class="text-sm text-gray-600">描述大家都认可的背景事实，建立共识。</p>
-                </div>
+            <section id="inner" class="mb-20 scroll-mt-24">
+                <h2 class="text-3xl font-bold mb-8 flex items-center">
+                    <span class="text-indigo-600 mr-4 text-4xl">01</span> 向内探索：深度思考与自我重构
+                </h2>
+                <p>我们的大脑天生习惯网状思考。写作本质上是将网状思维转化为线性语言的过程。在这个过程中，你真正“拥有”了这些思想。</p>
                 
-                <!-- C -->
-                <div class="scqa-box bg-white p-6 rounded-xl shadow-md border-t-4 border-accent text-center hover:shadow-lg transition-shadow">
-                    <div class="text-4xl font-black text-accent/20 mb-2">C</div>
-                    <h3 class="text-xl font-bold text-accent mb-2">冲突<br><span class="text-sm opacity-75">Complication</span></h3>
-                    <p class="text-sm text-gray-600">发生了什么变化？出现什么问题打破了平衡？</p>
+                <div class="bg-white p-8 rounded-2xl card-shadow border border-slate-100 my-10">
+                    <h3 class="text-xl font-bold mb-4 text-slate-800">大脑的定位：CPU vs 硬盘</h3>
+                    <p class="text-slate-600 mb-6 italic">大脑应该是 CPU，而不是仅仅作为硬盘。</p>
+                    <div class="flex items-center space-x-4 bg-slate-50 p-4 rounded-xl">
+                        <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center shrink-0">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <p class="text-sm text-slate-500 m-0 font-medium leading-relaxed">通过写作腾出内存，让大脑专注于分析与组织，而非机械的背诵。 完成了“去碎片化”的整理，你就真正“拥有”了这些思想。</p>
+                    </div>
                 </div>
+            </section>
+
+            <section id="outer" class="mb-20 scroll-mt-24">
+                <h2 class="text-3xl font-bold mb-8 flex items-center">
+                    <span class="text-indigo-600 mr-4 text-4xl">02</span> 向外延伸：影响力与连接的杠杆
+                </h2>
+                <p>持续的、高质量的内容分享，则像是在数字世界中建造一座灯塔。它是你 24 小时在线的信号发射器。它在为你进行“被动社交”，让机会主动来找你。</p>
                 
-                <!-- Q -->
-                <div class="scqa-box bg-white p-6 rounded-xl shadow-md border-t-4 border-highlight text-center hover:shadow-lg transition-shadow">
-                    <div class="text-4xl font-black text-highlight/20 mb-2">Q</div>
-                    <h3 class="text-xl font-bold text-highlight mb-2">问题<br><span class="text-sm opacity-75">Question</span></h3>
-                    <p class="text-sm text-gray-600">面对这个冲突，我们该怎么办？</p>
+                <div class="relative py-10">
+                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                        <div class="w-full border-t border-slate-200"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm font-medium">
+                        <span class="bg-slate-50 px-4 text-slate-500 uppercase tracking-widest font-bold">修辞学三角理论</span>
+                    </div>
                 </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <div class="p-6 bg-white rounded-2xl border border-indigo-100 card-shadow">
+                        <div class="text-indigo-600 font-bold mb-2 italic">Ethos</div>
+                        <h4 class="font-bold text-slate-800 text-base mb-2">人格信誉</h4>
+                        <p class="text-xs text-slate-500 m-0 leading-relaxed">你的专业度和真诚。读者为何相信你？</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-pink-100 card-shadow">
+                        <div class="text-pink-600 font-bold mb-2 italic">Pathos</div>
+                        <h4 class="font-bold text-slate-800 text-base mb-2">情感共鸣</h4>
+                        <p class="text-xs text-slate-500 m-0 leading-relaxed">用故事、生动的比喻建立情感连接。</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-blue-100 card-shadow">
+                        <div class="text-blue-600 font-bold mb-2 italic">Logos</div>
+                        <h4 class="font-bold text-slate-800 text-base mb-2">逻辑理性</h4>
+                        <p class="text-xs text-slate-500 m-0 leading-relaxed">严谨的结构与可靠的数据支持。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="input" class="mb-20 scroll-mt-24">
+                <h2 class="text-3xl font-bold mb-8 flex items-center">
+                    <span class="text-indigo-600 mr-4 text-4xl">03</span> 方法：建立素材库（输入）
+                </h2>
+                <p>输入质量决定输出质量。要刻意减少“精神糖果”的摄入，增加“厚切牛排”的深度阅读。</p>
                 
-                <!-- A -->
-                <div class="scqa-box bg-white p-6 rounded-xl shadow-md border-t-4 border-secondary text-center hover:shadow-lg transition-shadow">
-                    <div class="text-4xl font-black text-secondary/20 mb-2">A</div>
-                    <h3 class="text-xl font-bold text-secondary mb-2">答案<br><span class="text-sm opacity-75">Answer</span></h3>
-                    <p class="text-sm text-gray-600">你的核心观点和解决方案（文章主体）。</p>
+                <div class="bg-indigo-900 text-white p-10 rounded-3xl relative overflow-hidden my-10 shadow-2xl shadow-indigo-200">
+                    <div class="relative z-10">
+                        <h4 class="text-indigo-300 font-bold mb-6 flex items-center">
+                            <i class="fas fa-bolt mr-2"></i> 高效率狩猎式学习
+                        </h4>
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-6 h-6 bg-indigo-500 rounded flex items-center justify-center text-xs shrink-0 font-bold">1</div>
+                                <div>
+                                    <h5 class="font-bold text-sm mb-1 text-white">即时专注学习</h5>
+                                    <p class="text-xs text-indigo-200 m-0 leading-relaxed">带着目的进入知识超市。只专注于寻找当下解决问题所需的“番茄和鸡蛋”，过滤掉无关干扰。</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-6 h-6 bg-indigo-500 rounded flex items-center justify-center text-xs shrink-0 font-bold">2</div>
+                                <div>
+                                    <h5 class="font-bold text-sm mb-1 text-white">随时捕捉灵感</h5>
+                                    <p class="text-xs text-indigo-200 m-0 leading-relaxed">利用 flomo 或备忘录定格思维火花。不求完美，通过“每周盘点”将碎片编织成知识网络。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -right-10 -bottom-10 text-[12rem] text-indigo-800 opacity-30 select-none pointer-events-none">
+                        <i class="fas fa-brain"></i>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-indigo-50 p-6 rounded-lg">
-                    <h4 class="font-bold text-indigo-900 mb-2">⚡ 最小化启动法</h4>
-                    <p class="text-gray-700 text-sm">不要想着“写一篇文章”，先列出 3 个想说的要点。允许“糟糕的初稿”，先完成，再完美。</p>
+            <section id="output" class="mb-20 scroll-mt-24">
+                <h2 class="text-3xl font-bold mb-8 flex items-center">
+                    <span class="text-indigo-600 mr-4 text-4xl">04</span> 实践：思想转化为文字（输出）
+                </h2>
+                
+                <h3 class="text-xl font-bold mb-4">1. 结构化开篇：SCQA 钩子</h3>
+                <div class="scqa-box p-6 bg-emerald-50 rounded-r-2xl mb-12">
+                    <div class="text-emerald-700 font-bold text-sm mb-4 border-b border-emerald-100 pb-2">SCQA 框架演示</div>
+                    <ul class="space-y-3 text-sm text-slate-700 list-none p-0">
+                        <li class="flex items-start"><span class="font-bold text-emerald-600 mr-3 w-4 shrink-0">S</span><span><strong>情景:</strong> AI 正在改变开发方式，理论上人人皆可编程。</span></li>
+                        <li class="flex items-start"><span class="font-bold text-emerald-600 mr-3 w-4 shrink-0">C</span><span><strong>冲突:</strong> 现实中多数开发停留在 Demo，缺乏真实问题的落地。</span></li>
+                        <li class="flex items-start"><span class="font-bold text-emerald-600 mr-3 w-4 shrink-0">Q</span><span><strong>问题:</strong> 不懂前端的人如何在 2 周内靠 AI 上架完整小程序？</span></li>
+                        <li class="flex items-start"><span class="font-bold text-emerald-600 mr-3 w-4 shrink-0">A</span><span><strong>回答:</strong> 答案是一套将 AI 从“玩具”变为“武器”的实战工作流。</span></li>
+                    </ul>
                 </div>
-                <div class="bg-cyan-50 p-6 rounded-lg">
-                    <h4 class="font-bold text-cyan-900 mb-2">👀 视觉可读性</h4>
-                    <p class="text-gray-700 text-sm">屏幕时代读者在“扫描”。多用短句、留白、加粗和列表，降低阅读阻力。</p>
+
+                <h3 class="text-xl font-bold mb-6 text-indigo-600">2. 视觉化表达：图形的力量</h3>
+                
+                <!-- 图形表述：流程图 -->
+                <div class="mb-12">
+                    <p class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">逻辑图：项目迭代闭环</p>
+                    <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-100 card-shadow">
+                        <div class="flow-step flex flex-col items-center flex-1 min-w-[80px]">
+                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-lightbulb text-sm"></i></div>
+                            <span class="text-xs font-bold text-slate-700">计划</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-slate-200 text-xs hidden sm:block"></i>
+                        <div class="flow-step flex flex-col items-center flex-1 min-w-[80px]">
+                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-code text-sm"></i></div>
+                            <span class="text-xs font-bold text-slate-700">编码</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-slate-200 text-xs hidden sm:block"></i>
+                        <div class="flow-step flex flex-col items-center flex-1 min-w-[80px]">
+                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-vial text-sm"></i></div>
+                            <span class="text-xs font-bold text-slate-700">测试</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-slate-200 text-xs hidden sm:block"></i>
+                        <div class="flow-step flex flex-col items-center flex-1 min-w-[80px]">
+                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-rocket text-sm"></i></div>
+                            <span class="text-xs font-bold text-slate-700">发布</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-slate-200 text-xs hidden sm:block"></i>
+                        <div class="flow-step flex flex-col items-center flex-1 min-w-[80px]">
+                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-2"><i class="fas fa-redo text-sm"></i></div>
+                            <span class="text-xs font-bold text-slate-700">反馈</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4 text-center italic">图形能将抽象逻辑“实体化”，比文字论述更有穿透力。</p>
                 </div>
-            </div>
-        </section>
 
-        <!-- Section 4: Distribution Funnel (CSS Shapes) -->
-        <section class="bg-gray-900 text-white rounded-3xl p-8 md:p-16 relative overflow-hidden">
-            <!-- Decorative circle -->
-            <div class="absolute top-0 right-0 w-64 h-64 bg-accent opacity-10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                <!-- 表格对比 -->
+                <div class="mb-10">
+                    <p class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">对比表：工具定位分析</p>
+                    <div class="overflow-hidden border border-slate-200 rounded-xl">
+                        <table class="min-w-full text-sm divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left font-bold text-slate-700">维度</th>
+                                    <th class="px-4 py-3 text-left font-bold text-slate-700">Flomo</th>
+                                    <th class="px-4 py-3 text-left font-bold text-slate-700">通用笔记软件</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 bg-white">
+                                <tr>
+                                    <td class="px-4 py-3 font-medium text-slate-900">输入阻力</td>
+                                    <td class="px-4 py-3 text-emerald-600 font-medium">极低，随时捕捉</td>
+                                    <td class="px-4 py-3 text-slate-500">中，需正式创建</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-medium text-slate-900">结构化</td>
+                                    <td class="px-4 py-3 text-slate-500">弱，标签化管理</td>
+                                    <td class="px-4 py-3 text-indigo-600 font-medium">强，支持排版</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-medium text-slate-900">核心场景</td>
+                                    <td class="px-4 py-3">碎片化、灵感捕捉</td>
+                                    <td class="px-4 py-3">深度写作、沉淀协作</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-3xl font-bold mb-6">传播篇：构建你的流量漏斗</h2>
-                    <p class="text-gray-300 mb-8 leading-relaxed">
-                        “酒香也怕巷子深”。懂得运营是对心血的尊重。我们需要通过不同的平台组合，将公域的流量转化为私域的信任资产。
-                        <br><br>
-                        <strong>COPE 策略 (Create Once, Publish Everywhere):</strong> 将一个核心观点（Big Idea）拆解为长文、推文串、短视频，最大化 ROI。
+                <h3 class="text-xl font-bold mb-4">3. 思维影院：文字也能“视觉化”</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+                    <div class="p-5 bg-slate-100 rounded-2xl">
+                        <div class="text-[10px] uppercase font-bold text-slate-400 mb-2">原始描述 (Dry)</div>
+                        <p class="text-sm text-slate-600 m-0">写作时不要边写边改，应该先写完再统一修改。</p>
+                    </div>
+                    <div class="p-5 bg-indigo-50 border border-indigo-100 rounded-2xl">
+                        <div class="text-[10px] uppercase font-bold text-indigo-400 mb-2">增强描述 (Vivid)</div>
+                        <p class="text-sm text-indigo-900 m-0 leading-relaxed font-medium">边写边改，如同一边踩油门一边踩刹车，极易导致发动机报废。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="conclusion" class="mb-20 pb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold mb-8 flex items-center">
+                    <span class="text-indigo-600 mr-4 text-4xl">05</span> 结语：开启你的写作复利
+                </h2>
+                
+                <div class="bg-gradient-to-br from-indigo-600 to-purple-800 p-10 rounded-3xl text-white shadow-xl shadow-indigo-100">
+                    <h3 class="text-white text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-spa mr-3 text-indigo-300"></i> 荷花池的故事
+                    </h3>
+                    <p class="text-indigo-50 leading-relaxed mb-6">
+                        第一天池中只有一朵荷花，之后每天翻倍。直到第 29 天，池塘也才开满一半。但只需再过一天，第 30 天，整个池塘就会被完全覆盖。
+                    </p>
+                    <p class="text-indigo-50 leading-relaxed mb-10">
+                        写作、积累、影响力的构建，都是典型的指数增长过程。<strong>早期增长极其缓慢，但只要你坚持下去，穿越那段漫长的“寂寞期”，你终将迎来价值爆发。</strong>
                     </p>
                     
-                    <!-- Funnel Visualization using stacked divs -->
-                    <div class="flex flex-col items-center w-full max-w-md mx-auto space-y-2">
-                        <!-- Top: Public -->
-                        <div class="w-full bg-secondary p-4 text-center rounded-t-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
-                            <h4 class="font-bold text-white text-lg">公域流量 (Discovery)</h4>
-                            <p class="text-xs text-white/80">知乎 / 小红书 / Medium</p>
-                        </div>
-                        <!-- Middle: Private -->
-                        <div class="w-3/4 bg-primary p-4 text-center shadow-lg transform hover:scale-105 transition-transform duration-300">
-                            <h4 class="font-bold text-white text-lg">私域沉淀 (Trust)</h4>
-                            <p class="text-xs text-white/80">公众号 / Newsletter / 博客</p>
-                        </div>
-                        <!-- Bottom: Fans -->
-                        <div class="w-1/2 bg-accent p-4 text-center rounded-b-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
-                            <h4 class="font-bold text-white text-lg">超级粉丝 (Connection)</h4>
-                            <p class="text-xs text-white/80">深度交流 / 社群</p>
+                    <div class="border-t border-indigo-400/30 pt-8 text-center">
+                        <p class="text-xl font-bold mb-6">写下第一个字就已战胜 99% 的人</p>
+                        <div class="inline-flex items-center space-x-3 px-8 py-4 bg-white text-indigo-700 rounded-full font-bold shadow-lg hover:scale-105 transition duration-300 cursor-default">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>打开空白文档，立即开始</span>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="space-y-6">
-                    <div class="bg-gray-800 p-6 rounded-xl border-l-4 border-secondary">
-                        <h3 class="text-xl font-bold text-secondary mb-2">数字花园 (Digital Garden)</h3>
-                        <p class="text-gray-400 text-sm">让内容处于“生长”状态。不同于时间流博客，数字花园强调知识的互联。你可以随时回来修改旧笔记，让它们像植物一样常青。</p>
-                    </div>
-                    <div class="bg-gray-800 p-6 rounded-xl border-l-4 border-highlight">
-                        <h3 class="text-xl font-bold text-highlight mb-2">Show Your Work</h3>
-                        <p class="text-gray-400 text-sm">打开车库门。展示你的草稿、灵感来源和学习过程。这种“养成系”内容往往比完美的成品更能建立真实的信任。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 5: Growth - Line Chart -->
-        <section>
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-primary">复利效应：坚持是唯一的捷径</h2>
-                <p class="text-gray-600 mt-2">写作初期往往是平缓而令人绝望的，但只要突破临界点，长期的积累会带来指数级增长。</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="md:col-span-2">
-                    <div class="chart-container">
-                        <canvas id="growthChart"></canvas>
-                    </div>
-                </div>
-                <div class="flex flex-col justify-center space-y-6">
-                    <div class="p-6 bg-white rounded-lg shadow-md border-t-4 border-accent">
-                        <h3 class="font-bold text-lg text-accent mb-2">临界点 (The Tipping Point)</h3>
-                        <p class="text-gray-600 text-sm">前期的努力是在扎根。很多时候我们离爆发只差最后一篇高质量的输出。</p>
-                    </div>
-                    <div class="p-6 bg-white rounded-lg shadow-md border-t-4 border-primary">
-                        <h3 class="font-bold text-lg text-primary mb-2">长尾效应 (The Long Tail)</h3>
-                        <p class="text-gray-600 text-sm">今天写的文章，三年后依然可能在帮你连接同频的人。互联网是有记忆的。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer / CTA -->
-        <footer class="bg-primary text-white py-12 rounded-t-3xl mt-12 text-center">
-            <h2 class="text-3xl font-black mb-6">现在，就写下你的第一行字。</h2>
-            <p class="mb-8 text-cyan-200 max-w-2xl mx-auto text-lg">
-                最好的开始时间是十年前，其次是现在。不要等待完美的工具，不要等待完美的时机。
-            </p>
-            <div class="inline-block bg-accent hover:bg-pink-600 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-colors cursor-pointer text-xl">
-                开始写作 🚀
-            </div>
-            
-            <div class="mt-12 pt-8 border-t border-white/20 grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-4xl mx-auto px-4">
-                <div>
-                    <h4 class="font-bold text-highlight mb-2">📚 推荐书籍</h4>
-                    <ul class="text-sm text-gray-300 space-y-1">
-                        <li>《写出我心》</li>
-                        <li>《金字塔原理》</li>
-                        <li>《卡片笔记写作法》</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-secondary mb-2">🛠️ 推荐工具</h4>
-                    <ul class="text-sm text-gray-300 space-y-1">
-                        <li>Obsidian / Notion (笔记)</li>
-                        <li>Flomo (捕捉)</li>
-                        <li>Markdown (格式)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-white mb-2">🌟 核心原则</h4>
-                    <ul class="text-sm text-gray-300 space-y-1">
-                        <li>Done is better than perfect.</li>
-                        <li>Show your work.</li>
-                        <li>Give value first.</li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
-
+        </article>
     </main>
 
+    <footer class="bg-slate-900 text-slate-500 py-16 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-center space-x-8 mb-8 text-2xl">
+                <a href="#" class="hover:text-white transition"><i class="fab fa-github"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fas fa-envelope"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fas fa-share-alt"></i></a>
+            </div>
+            <p class="text-sm mb-4">© 2024 International Logistics Team. Built with Passion for Sharing.</p>
+            <p class="text-[10px] text-slate-700 uppercase tracking-widest">Powered by TailWindCSS & ByteTech Content Strategy</p>
+        </div>
+    </footer>
+
     <script>
-        // --- UTILITY: Label Wrapping Logic (16 chars) ---
-        function wrapLabel(label, maxChars = 16) {
-            if (label.length <= maxChars) return label;
-            const words = label.split(' ');
-            const lines = [];
-            let currentLine = words[0];
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-            for (let i = 1; i < words.length; i++) {
-                if ((currentLine + " " + words[i]).length <= maxChars) {
-                    currentLine += " " + words[i];
-                } else {
-                    lines.push(currentLine);
-                    currentLine = words[i];
+        // Progress Bar & Scroll Tracking
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+            
+            // Top Nav Highlighting
+            const sections = document.querySelectorAll("section");
+            const navLinks = document.querySelectorAll("#top-nav a");
+            
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 120) {
+                    current = section.getAttribute("id");
                 }
-            }
-            lines.push(currentLine);
-            return lines;
-        }
+            });
 
-        // --- GLOBAL: Tooltip Configuration ---
-        const commonTooltipConfig = {
-            callbacks: {
-                title: function(tooltipItems) {
-                    const item = tooltipItems[0];
-                    let label = item.chart.data.labels[item.dataIndex];
-                    if (Array.isArray(label)) {
-                        return label.join(' ');
-                    } else {
-                        return label;
-                    }
+            navLinks.forEach((link) => {
+                link.classList.remove("nav-link-active");
+                if (link.getAttribute("href").includes(current)) {
+                    link.classList.add("nav-link-active");
                 }
-            },
-            titleFont: { size: 14, family: "'Noto Sans SC', sans-serif" },
-            bodyFont: { size: 13, family: "'Noto Sans SC', sans-serif" },
-            padding: 12,
-            backgroundColor: 'rgba(31, 41, 55, 0.95)'
+            });
         };
-
-        // --- CHART 1: Mindset Radar Chart (Consumer vs Creator) ---
-        const ctxMindset = document.getElementById('mindsetChart').getContext('2d');
-        const mindsetLabels = ["思维清晰度 (Clarity)", "知识留存 (Retention)", "社交连接 (Connection)", "个人品牌 (Brand)", "影响力 (Influence)", "抗焦虑 (Resilience)"];
-        const wrappedMindsetLabels = mindsetLabels.map(l => wrapLabel(l));
-
-        new Chart(ctxMindset, {
-            type: 'radar',
-            data: {
-                labels: wrappedMindsetLabels,
-                datasets: [
-                    {
-                        label: '创造者 (Creator)',
-                        data: [95, 90, 85, 90, 85, 80],
-                        backgroundColor: 'rgba(6, 182, 212, 0.2)', // Cyan transparent
-                        borderColor: '#06B6D4',
-                        pointBackgroundColor: '#06B6D4',
-                        borderWidth: 2
-                    },
-                    {
-                        label: '消费者 (Consumer)',
-                        data: [40, 30, 20, 10, 5, 30],
-                        backgroundColor: 'rgba(219, 39, 119, 0.2)', // Pink transparent
-                        borderColor: '#DB2777',
-                        pointBackgroundColor: '#DB2777',
-                        borderWidth: 2
-                    }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    r: {
-                        beginAtZero: true,
-                        grid: { color: 'rgba(0,0,0,0.1)' },
-                        pointLabels: {
-                            font: { size: 12, family: "'Noto Sans SC', sans-serif" },
-                            color: '#4B5563'
-                        },
-                        ticks: { display: false } // Hide numbers for cleaner look
-                    }
-                },
-                plugins: {
-                    legend: { position: 'bottom', labels: { font: { family: "'Noto Sans SC', sans-serif" } } },
-                    tooltip: commonTooltipConfig
-                }
-            }
-        });
-
-        // --- CHART 2: Input Diet Doughnut Chart ---
-        const ctxInput = document.getElementById('inputChart').getContext('2d');
-        const inputLabels = ["经典书籍/深度长文 (High Signal)", "行业资讯/Newsletters (Medium)", "社交媒体/短视频 (Low Signal)"];
-        const wrappedInputLabels = inputLabels.map(l => wrapLabel(l, 20));
-
-        new Chart(ctxInput, {
-            type: 'doughnut',
-            data: {
-                labels: wrappedInputLabels,
-                datasets: [{
-                    data: [60, 30, 10], // Ideal diet percentages
-                    backgroundColor: [
-                        '#4C1D95', // Deep Purple (High Value)
-                        '#06B6D4', // Cyan (Medium Value)
-                        '#F59E0B'  // Amber (Snack/Low Value)
-                    ],
-                    borderWidth: 0,
-                    hoverOffset: 10
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                cutout: '60%',
-                plugins: {
-                    legend: { position: 'right', labels: { boxWidth: 20, font: { family: "'Noto Sans SC', sans-serif" } } },
-                    tooltip: commonTooltipConfig,
-                    title: {
-                        display: true,
-                        text: '理想的信息摄入比例',
-                        font: { size: 16, weight: 'bold', family: "'Noto Sans SC', sans-serif" },
-                        color: '#1F2937'
-                    }
-                }
-            }
-        });
-
-        // --- CHART 3: Growth Line Chart (Exponential) ---
-        const ctxGrowth = document.getElementById('growthChart').getContext('2d');
-        
-        // Generate exponential data
-        const timeLabels = ['第1个月', '第3个月', '第6个月', '第1年', '第2年', '第3年', '第5年'];
-        const consumerValue = [10, 20, 30, 40, 50, 60, 80]; // Linear
-        const creatorValue = [10, 15, 25, 50, 120, 300, 800]; // Exponential
-
-        new Chart(ctxGrowth, {
-            type: 'line',
-            data: {
-                labels: timeLabels,
-                datasets: [
-                    {
-                        label: '持续写作 (知识复利)',
-                        data: creatorValue,
-                        borderColor: '#4C1D95', // Purple
-                        backgroundColor: 'rgba(76, 29, 149, 0.1)',
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 3,
-                        pointRadius: 4,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#4C1D95',
-                        pointBorderWidth: 2
-                    },
-                    {
-                        label: '仅输入不输出',
-                        data: consumerValue,
-                        borderColor: '#9CA3AF', // Gray
-                        borderDash: [5, 5],
-                        fill: false,
-                        tension: 0.2,
-                        borderWidth: 2,
-                        pointRadius: 0
-                    }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { display: false },
-                        title: { display: true, text: '个人价值 / 影响力', color: '#6B7280' }
-                    },
-                    x: {
-                        grid: { display: false }
-                    }
-                },
-                plugins: {
-                    legend: { position: 'top' },
-                    tooltip: commonTooltipConfig,
-                    title: {
-                        display: true,
-                        text: '复利效应：长期积累的爆发力',
-                        font: { size: 16, weight: 'bold', family: "'Noto Sans SC', sans-serif" },
-                        color: '#1F2937'
-                    }
-                }
-            }
-        });
     </script>
 </body>
 </html>
